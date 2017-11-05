@@ -23,7 +23,11 @@ public class EventManager {
 			} else if(args[0].equals("associateEvent")) {
 				mgr.addPersonToEvent(1L, 1L);
 			} else if(args[0].equals("associateEventDetach")) {
-				mgr.addPersonToEventDetached(1L, 2L);
+				mgr.addPersonToEventDetached(1L, 3L);
+			} else if(args[0].equals("addEmailToPerson")) {
+				Long id = mgr.createAndStorePerson("Jacky", "Fan", 35);
+				mgr.addEmailToPerson(id, "jerry.hu@oceanwing.com");
+				mgr.addEmailToPerson(id, "huyaoban@163.com");
 			}
 		}
 
@@ -105,4 +109,14 @@ public class EventManager {
 		session2.close();
 	}
 
+	private void addEmailToPerson(Long personId, String emailAddress) {
+		Session session = HibernateUtil.openSession();
+		session.beginTransaction();
+		
+		Person person = (Person)session.load(Person.class, personId);
+		person.getEmailAddresses().add(emailAddress);
+		
+		session.getTransaction().commit();
+		session.close();
+	}
 }

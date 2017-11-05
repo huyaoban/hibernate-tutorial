@@ -1,12 +1,15 @@
 package com.huyaoban.hibernate.hbm;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Event {
 	private Long id;
-
 	private String title;
 	private Date date;
+	
+	private Set<Person> participants = new HashSet<Person>();
 
 	public Event() {
 		// this form used by Hibernate
@@ -42,4 +45,13 @@ public class Event {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public Set<Person> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<Person> participants) {
+		this.participants = participants;
+	}
+	
 }
